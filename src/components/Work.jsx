@@ -1,9 +1,21 @@
-//import React from 'react'
+import { Html } from "@react-three/drei";
 
 export default function Work() {
-    return (
-      <section id="about-us">
+  return (
+    <Html
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      transform
+      distanceFactor={1}
+    >
+      <div id="work">
         <h2>Work</h2>
-      </section>
-    )
-  }
+      </div>
+    </Html>
+  );
+}

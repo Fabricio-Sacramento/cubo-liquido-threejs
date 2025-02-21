@@ -1,9 +1,21 @@
-//import React from 'react'
+import { Html } from "@react-three/drei";
 
 export default function Statement() {
-    return (
-      <section id="about-us">
-        <h2>Statement</h2>
-      </section>
-    )
-  }
+  return (
+    <Html
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      transform
+      distanceFactor={1}
+    >
+      <div id="statement">
+        <h2>Work</h2>
+      </div>
+    </Html>
+  );
+}
