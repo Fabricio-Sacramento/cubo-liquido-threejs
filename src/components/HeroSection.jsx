@@ -1,21 +1,27 @@
-import WorldCanvas from './WorldCanvas'
-import '../styles/style.css'
-import '../styles/HeroSection.module.css'
+// src/components/HeroSection.jsx
+import PropTypes from 'prop-types';
+import WorldCanvas from './WorldCanvas';
+import '../styles/style.css';
+import '../styles/HeroSection.module.css';
 
-export default function HeroSection() {
+const HeroSection = ({ canvasActive }) => {
   return (
-    <section className='flex-left' id="hero">
-
-      <div className='text-column'>
-        <h2 className='heading-small'>DESIGNING</h2>
-        <h2 className='heading-large'>BRANDS</h2>
-        <h2 className='heading-large'>PRODUCTS</h2>
-        <h2 className='heading-large'>EXPERIENCES</h2>
+    <section className="hero-container">
+      <div className="text-column">
+        <h2 className="heading-small">DESIGNING</h2>
+        <h2 className="heading-large">BRANDS</h2>
+        <h2 className="heading-large">PRODUCTS</h2>
+        <h2 className="heading-large">EXPERIENCES</h2>
       </div>
-
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+      {canvasActive && (
         <WorldCanvas />
-      </div>
+      )}
     </section>
-  )
-}
+  );
+};
+
+HeroSection.propTypes = {
+  canvasActive: PropTypes.bool.isRequired,
+};
+
+export default HeroSection;

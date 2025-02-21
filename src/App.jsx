@@ -1,22 +1,43 @@
-import HeroSection from './components/HeroSection'
-import AboutUs from './components/AboutUs'
-import WhatWeDo from './components/WhatWeDo'
-import Work from './components/Work'
-import Statement from './components/Statement'
-import Clients from './components/Clients'
-import Contact from './components/Contact'
-export default function App() {
+// src/App.jsx
+import { useState, useCallback } from 'react';
+import HeroSection from './components/HeroSection';
+import AboutUsWrapper from './components/AboutUsWrapper';
+import WhatWeDo from './components/WhatWeDo';
+import Work from './components/Work';
+import Statement from './components/Statement';
+import Clients from './components/Clients';
+import Contact from './components/Contact';
+import TransitionOverlay from './components/TransitionOverlay';
+import useScrollProgress from './hooks/useScrollProgress';
+
+function App() {
+  // Define os pontos de início e fim para a transição
+  const transitionStart = 0;
+  const transitionEnd = window.innerHeight;
+  const progress = useScrollProgress(transitionStart, transitionEnd);
+
+  // Estado para controlar se o canvas 3D deve estar ativo
+  const [canvasActive, setCanvasActive] = useState(true);
+
+  // Callback para desativar o HeroSection quando AboutUs for revelado
+  const handleAboutVisibilityChange = useCallback((isVisible) => {
+    setCanvasActive(!isVisible);
+  }, []);
+
   return (
     <>
-      {/* Hero Section (3D Background via Canvas + Texto) */}
+      {/* Hero Section */}
       <section id="hero">
-        <HeroSection />
+        <HeroSection canvasActive={canvasActive} />
       </section>
 
-      <section id="about-us">
-        <AboutUs />
-      </section>
+      {/* Transição visual das colunas */}
+      <TransitionOverlay progress={progress} />
 
+      {/* Seção AboutUs (monitora visibilidade para desligar o HeroSection) */}
+      <AboutUsWrapper onVisibilityChange={handleAboutVisibilityChange} />
+
+      {/* Restante das seções do site */}
       <section id="what-we-do">
         <WhatWeDo />
       </section>
@@ -37,5 +58,7 @@ export default function App() {
         <Contact />
       </section>
     </>
-  )
+  );
 }
+
+export default App;
