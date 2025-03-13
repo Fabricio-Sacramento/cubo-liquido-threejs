@@ -3,34 +3,30 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-window.addEventListener("load", () => {
-  const debug = false; // Altere para true para ver os markers
-
-  // Define o estado inicial: o texto amarelo começa 100% abaixo (fora de vista)
-  gsap.set(".text-front .line span", { x: "-100%" });
-
-  // Pin na seção About Us com intervalo de scroll maior (ajuste end se precisar)
+document.addEventListener("DOMContentLoaded", () => {
+  // Configura o ScrollTrigger para fixar a seção About Us
   ScrollTrigger.create({
     trigger: "#about-us",
     start: "top top",
-    end: "+=200%",  // aumenta o tempo de animação
-    pin: true,
+    end: "bottom top",
     scrub: true,
-    markers: debug,
+    pin: true,
+    // markers: true, // Ativar para depurar
   });
 
-  // Animação de revelação: move os spans de y:100% para y:0%
+  // Animação para revelar letra por letra no texto da frente,
+  // alterando o clip-path de cada span de "inset(0 0 100% 0)" para "inset(0 0 0 0)"
   gsap.to(".text-front .line span", {
-    x: "0%",
-    ease: "power2.out",
+    clipPath: "inset(0 0 0 0)",
+    duration: 1,
     stagger: 0.1,
-    duration: 0.6,
+    ease: "power2.out",
     scrollTrigger: {
       trigger: "#about-us",
       start: "top top",
-      end: "+=200%",
+      end: "bottom top",
       scrub: true,
-      markers: debug,
+      // markers: true, // Ativar para depurar
     }
   });
 });

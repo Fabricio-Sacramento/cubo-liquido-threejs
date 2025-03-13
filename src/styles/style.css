@@ -113,100 +113,171 @@ section {
   height: 100%;
 }
 
+/* ----------------------------- */
+/* 1) DESIGN TOKENS (Variáveis)  */
+/* ----------------------------- */
+:root {
+  /* Primary Red */
+  --primary-red: #F5163C;
+  --primary-red-dark: #B8112D;
+  --primary-red-darker: #560815;
+
+  /* Primary Yellow */
+  --primary-yellow: #F4A70B;
+  --primary-yellow-dark: #B77D08;
+  --primary-yellow-darker: #553A04;
+
+  /* Primary Blue */
+  --primary-blue: #1654DF;
+  --primary-blue-dark: #113FA7;
+  --primary-blue-darker: #081D4E;
+
+  /* Neutrals */
+  --neutral-light: #EBEBEB;
+  --neutral-normal: #373737;
+  --neutral-dark: #292929;
+  --neutral-darker: #131313;
+
+  /* Espaçamentos */
+  --space-8: 8px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-64: 64px;
+  --space-128: 128px;
+
+  /* Raio do carrossel 3D (ajuste conforme necessário) */
+  --carousel-radius: 300px;
+}
+
+/* Box-sizing global */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ----------------------------- */
+/* 2) RESET / BASE               */
+/* ----------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Container do canvas 3D */
+#root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+}
+canvas {
+  display: block;
+}
+
+/* ----------------------------- */
+/* 3) ESTILOS GERAIS             */
+/* ----------------------------- */
+section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  position: relative;
+  background: var(--neutral-darker);
+}
+.container {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.container-full {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
 /* --------------------------------- */
-/* About Us Section  */
+/* ABOUT US Section                */
 /* --------------------------------- */
 #about-us {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   background: var(--neutral-darker);
-  width: 100%;
   height: 100vh;
 }
 
-.about-us-container {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-}
-
+/* Container para texto de fundo (absoluto) */
 .about-us-container-absolute {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-}
-
-
-
-.about-us-container-absolute p,
-.about-us-container p {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -63%);
-  width: 90%; /* ou outro valor que se adeque */
-  text-align: flex-start;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
+/* Container para texto animado */
+.about-us-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
+/* Remove margens dos parágrafos */
+.about-us-container-absolute p,
+.about-us-container p {
+  margin: 0;
+}
+
+/* Estilos para o texto de fundo */
 .text-back {
   color: var(--neutral-dark);
-  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-  font-weight: 100;
-  font-size: 90px;
-  line-height: 1.1;
-  letter-spacing: 3px;
-  font-style: italic;
-  color: var(--neutral-dark);
   z-index: 1;
-}
-
-.text-front {
-  color: var(--neutral-dark);
-  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
-  font-weight: 100;
-  font-size: 90px;
-  line-height: 1.1;
-  letter-spacing: 3px;
-  font-style: italic;
-  color: var(--primary-yellow);
-  z-index: 2;
-}
-
-/* Divisão em linhas para animação */
-.text-front .line {
-  display: block;
-  overflow: hidden;
 }
 .text-back .line {
   display: block;
   overflow: hidden;
-}
-
-.text-front .line span {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
 }
 .text-back .line span {
   display: block;
   overflow: hidden;
 }
 
-.text-front .line span::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+/* Estilos para o texto animado */
+.text-front {
   color: var(--primary-yellow);
-  transform: translateX(100%);
-  transition: transform 0.6s ease-out;
+  z-index: 2;
+  overflow: hidden;
 }
-
+.text-front .line {
+  display: block;
+  overflow: hidden;
+}
 .text-front .line span {
-  transform: translateX(100%);
+  display: block;
+  /* Inicia oculto com máscara */
+  clip-path: inset(0 0 100% 0);
 }
 
 
