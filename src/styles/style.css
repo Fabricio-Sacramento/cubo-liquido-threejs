@@ -123,14 +123,56 @@ section {
   height: 100%;
 }
 
+
+/* Novo container que agrupa About Us e What We Do */
+#about-what-container {
+  position: relative;
+}
+
+/* Camada de background fixo que permanece no viewport */
+#about-what-container .fixed-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: url('../assets/images/New-Flakes-02.jpg') no-repeat center center;
+  background-size: cover;
+  z-index: -1;
+}
+
+/* Container para o conteúdo rolável */
+#about-what-container .about-what-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Forçamos as seções internas a se comportarem como blocos, preservando position e altura */
+#about-what-container .about-what-content > section {
+  height: 100vh;
+  width: 100%;
+  background: transparent;
+}
+
+
+/* As seções About Us e What We Do não terão background próprio para que o fixed-background seja visível */
+#about-us,
+.what-we-do {
+  background: transparent !important;
+}
+
+/* Caso a seção About Us possua background original, garanta que fique transparente */
+#about-what-container #about-us {
+  background: transparent !important;
+}
+
+
 /* --------------------------------- */
 /* ABOUT US Section                */
 /* --------------------------------- */
 #about-us {
   position: relative;
   overflow: visible;
-  background: url('../assets/images/New-Flakes-02.jpg') no-repeat center center;
-  background-size: cover;
   z-index: 1;
 }
 .about-us-container-absolute {
@@ -163,13 +205,10 @@ section {
   background: var(--neutral-dark);
 }
 .what-we-do__container {
-  width: 100%;
-  margin: 0 auto;
-  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  align-items: stretch;
 }
 
 /* Coluna 1 (C1) */
