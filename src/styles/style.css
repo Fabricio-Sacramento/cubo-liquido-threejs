@@ -98,19 +98,23 @@ section {
   align-items: stretch;
 }
 
+/* Ajuste para as seções subsequentes para que não sobreponham o container #about-what */
+#work, #statement, #clients, #contact {
+  position: relative;
+  z-index: 1; /* Menor z-index, garantindo que o #about-what continue visível enquanto for rolado */
+  clear: both;
+}
+
 /* ----------------------------- */
 /* 4) HERO SECTION              */
 /* ----------------------------- */
 #hero {
-  top: 0;
-  left: 0;
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100vh;
+  z-index: 10;             /* Garante que a hero apareça no topo */
   overflow: hidden;
-  z-index: 3;
-  background: transparent !important;
-  /* Aplica o clipPath definido no SVG */
+  background: transparent;
   clip-path: url(#heroClip);
 }
 .hero-content {
@@ -123,15 +127,64 @@ section {
   height: 100%;
 }
 
+/* Container unificado para About Us e What We Do */
+/* Considerando que cada seção originalmente tem 100vh, usamos min-height: 200vh */
+#about-what {
+  min-height: 200vh;                   /* 100vh para About Us + 100vh para What We Do */
+  position: relative;
+  overflow: visible;
+}
+
+/* Garante que o wrapper interno empilhe as seções verticalmente */
+#about-what .about-what-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cada sub-seção ocupará 100vh e se comportará como bloco */
+#about-what .about-what-wrapper > section {
+  height: 100vh;
+  display: block;
+}
+
+
+/* Background fixo para o container unificado */
+#about-what .sticky-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;             /* Fica atrás do conteúdo */
+  background: url('../assets/images/New-Flakes-02.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;  /* Garante que a imagem não se mova com o scroll */
+}
+
+/* Container para o conteúdo rolável */
+.about-what-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+
 /* --------------------------------- */
 /* ABOUT US Section                */
 /* --------------------------------- */
 #about-us {
   position: relative;
   overflow: visible;
-  background: url('../assets/images/New-Flakes-02.jpg') no-repeat center center;
-  background-size: cover;
+  background: transparent;
   z-index: 1;
+}
+/* Sobreposição: garantimos que o About Us não fique absoluto */
+/* Se o original usava .about-us-container-absolute, vamos sobrescrever para exibir em fluxo normal */
+#about-us .about-us-container {
+  position: relative; /* em vez de absolute */
+  width: 100%;
+  height: 100vh; /* mantém a altura de 100vh para About Us */
 }
 .about-us-container-absolute {
   position: absolute;
@@ -160,7 +213,6 @@ section {
   width: 100%;
   height: 100vh;
   display: flex;
-  background: var(--neutral-dark);
 }
 .what-we-do__container {
   width: 100%;
